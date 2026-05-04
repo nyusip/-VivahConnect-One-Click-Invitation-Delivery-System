@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | VivahConnect</title>
+    <style>
+        :root {
+            --wine: #6f1d37;
+            --rose: #b14b72;
+            --blush: #f8d8dd;
+            --gold: #d8b06a;
+            --cream: #fff8f1;
+            --ivory: #fffdf9;
+            --sage: #768e74;
+            --ink: #43262c;
+            --shadow: 0 30px 70px rgba(77, 29, 47, 0.2);
+            --soft-shadow: 0 16px 32px rgba(77, 29, 47, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--ink);
+            background:
+                linear-gradient(rgba(67, 38, 44, 0.28), rgba(67, 38, 44, 0.32)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1800 1400'%3E%3Cdefs%3E%3CradialGradient id='bg' cx='50%25' cy='42%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%23fff4e7'/%3E%3Cstop offset='100%25' stop-color='%23d7b06a'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1800' height='1400' fill='url(%23bg)'/%3E%3Cg opacity='0.45'%3E%3Ccircle cx='250' cy='180' r='170' fill='%23ffffff'/%3E%3Ccircle cx='1530' cy='290' r='220' fill='%23f9d6ad'/%3E%3Ccircle cx='1450' cy='1130' r='250' fill='%23f6cfc1'/%3E%3C/g%3E%3Cg stroke='%23a84b70' stroke-width='8' stroke-linecap='round' fill='none' opacity='0.58'%3E%3Cpath d='M60 1070 C190 920, 260 860, 360 700 C460 540, 430 350, 330 220'/%3E%3Cpath d='M1710 250 C1570 370, 1470 430, 1370 610 C1290 760, 1310 960, 1450 1120'/%3E%3Cpath d='M260 930 C320 850, 390 760, 430 665'/%3E%3Cpath d='M1490 440 C1430 510, 1385 580, 1340 690'/%3E%3C/g%3E%3Cg fill='%23768e74' opacity='0.72'%3E%3Cellipse cx='293' cy='753' rx='74' ry='24' transform='rotate(-33 293 753)'/%3E%3Cellipse cx='372' cy='650' rx='62' ry='20' transform='rotate(-10 372 650)'/%3E%3Cellipse cx='1392' cy='548' rx='78' ry='24' transform='rotate(29 1392 548)'/%3E%3Cellipse cx='1324' cy='658' rx='64' ry='19' transform='rotate(14 1324 658)'/%3E%3C/g%3E%3Cg fill='%23fff8f2' stroke='%23d8b06a' stroke-width='5'%3E%3Ccircle cx='330' cy='218' r='28'/%3E%3Ccircle cx='292' cy='266' r='22'/%3E%3Ccircle cx='354' cy='272' r='22'/%3E%3Ccircle cx='1450' cy='1125' r='28'/%3E%3Ccircle cx='1492' cy='1085' r='22'/%3E%3Ccircle cx='1408' cy='1085' r='22'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-shell {
+            width: min(100%, 1160px);
+            margin: 0 auto;
+            padding: 34px 18px 48px;
+        }
+
+        .invitation-card {
+            overflow: hidden;
+            border-radius: 34px;
+            background: rgba(255, 250, 244, 0.86);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero {
+            position: relative;
+            padding: 64px 54px 40px;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 32%),
+                linear-gradient(135deg, rgba(255, 247, 238, 0.92), rgba(247, 225, 217, 0.88));
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            width: 280px;
+            height: 280px;
+            top: -100px;
+            left: -80px;
+            background: radial-gradient(circle, rgba(216, 176, 106, 0.3), rgba(216, 176, 106, 0));
+        }
+
+        .hero::after {
+            width: 260px;
+            height: 260px;
+            right: -90px;
+            bottom: -120px;
+            background: radial-gradient(circle, rgba(177, 75, 114, 0.22), rgba(177, 75, 114, 0));
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(177, 75, 114, 0.1);
+            color: var(--rose);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        h1 {
+            margin: 18px 0 16px;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.94;
+            color: var(--wine);
+        }
+
+        .lead {
+            max-width: 640px;
+            margin: 0;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: rgba(67, 38, 44, 0.86);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .cta,
+        .ghost-button {
+            border: none;
+            border-radius: 999px;
+            padding: 15px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, var(--wine), var(--rose));
+            color: #fff9f5;
+            box-shadow: 0 16px 34px rgba(111, 29, 55, 0.24);
+        }
+
+        .ghost-button {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--wine);
+            border: 1px solid rgba(111, 29, 55, 0.12);
+        }
+
+        .cta:hover,
+        .ghost-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-aside {
+            display: grid;
+            gap: 16px;
+        }
+
+        .couple-card,
+        .promise-card {
+            padding: 24px;
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.68);
+            border: 1px solid rgba(177, 75, 114, 0.12);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .couple-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .couple-title {
+            font-size: 1.2rem;
+            color: var(--wine);
+        }
+
+        .ring {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 2px solid rgba(216, 176, 106, 0.8);
+            color: var(--gold);
+            font-size: 1.35rem;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .person {
+            padding: 18px 16px;
+            border-radius: 22px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(251, 240, 232, 0.9));
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.8rem;
+            color: #fff;
+            box-shadow: 0 12px 24px rgba(111, 29, 55, 0.18);
+        }
+
+        .avatar.groom {
+            background: linear-gradient(135deg, #6c5c8d, #8d76b7);
+        }
+
+        .avatar.bride {
+            background: linear-gradient(135deg, #d97b9d, #f09fb8);
+        }
+
+        .person span {
+            display: block;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rose);
+            margin-bottom: 6px;
+        }
+
+        .person strong {
+            display: block;
+            font-size: 1.18rem;
+            color: var(--wine);
+        }
+
+        .person p,
+        .promise-card p {
+            margin: 8px 0 0;
+            line-height: 1.65;
+            font-size: 0.98rem;
+            color: rgba(67, 38, 44, 0.78);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            padding: 0 54px 50px;
+        }
+
+        .section-card {
+            padding: 28px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.74);
+            border: 1px solid rgba(177, 75, 114, 0.12);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .section-card h2 {
+            margin: 0 0 12px;
+            font-size: 1.7rem;
+            color: var(--wine);
+        }
+
+        .section-card p {
+            margin: 0;
+            line-height: 1.8;
+            color: rgba(67, 38, 44, 0.8);
+        }
+
+        .feature-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .feature {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 14px;
+            align-items: start;
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255, 251, 248, 0.85);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(216, 176, 106, 0.22), rgba(177, 75, 114, 0.18));
+            color: var(--wine);
+            font-size: 1.2rem;
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--wine);
+        }
+
+        .journey {
+            display: grid;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .journey-step {
+            padding: 18px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(255, 250, 246, 0.96), rgba(250, 236, 229, 0.88));
+            border: 1px solid rgba(216, 176, 106, 0.18);
+        }
+
+        .journey-step span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rose);
+        }
+
+        .footer-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            padding: 0 54px 54px;
+        }
+
+        .footer-stat {
+            padding: 18px;
+            text-align: center;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(111, 29, 55, 0.95), rgba(143, 59, 92, 0.9));
+            color: #fff7f2;
+            box-shadow: var(--soft-shadow);
+        }
+
+        .footer-stat strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.55rem;
+        }
+
+        @media (max-width: 920px) {
+            .hero-grid,
+            .section-grid,
+            .footer-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .hero,
+            .section-grid,
+            .footer-strip {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 16px 10px 28px;
+            }
+
+            .hero {
+                padding-top: 34px;
+            }
+
+            .couple-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <main class="invitation-card">
+            <section class="hero">
+                <div class="hero-grid">
+                    <div>
+                        <span class="eyebrow">A Beautiful Family Invitation</span>
+                        <h1>Celebrate the Bride, the Groom, and Every Relative Together</h1>
+                        <p class="lead">
+                            VivahConnect turns your wedding website into a graceful family space where the
+                            bride and groom story shines, relatives feel personally included, and invitations
+                            are shared with warmth instead of looking like a plain form.
+                        </p>
+
+                        <div class="hero-actions">
+                            <button class="cta" type="button" onclick="window.location.href='index.html'">
+                                Enter Wedding Dashboard
+                            </button>
+                            <button class="ghost-button" type="button" onclick="document.getElementById('family-section').scrollIntoView({ behavior: 'smooth' })">
+                                See Family Features
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hero-aside">
+                        <div class="couple-card">
+                            <div class="couple-head">
+                                <div class="couple-title">Bride & Groom Spotlight</div>
+                                <div class="ring">oo</div>
+                            </div>
+
+                            <div class="couple-grid">
+                                <div class="person">
+                                    <div class="avatar groom">G</div>
+                                    <span>Groom</span>
+                                    <strong>Rahul</strong>
+                                    <p>Welcoming relatives with elegance, warmth, and celebration.</p>
+                                </div>
+                                <div class="person">
+                                    <div class="avatar bride">B</div>
+                                    <span>Bride</span>
+                                    <strong>Ananya</strong>
+                                    <p>Sharing joy, love, and memorable invitations with every family member.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="promise-card">
+                            <h2 style="margin:0 0 10px; font-size:1.3rem; color:var(--wine);">Designed for Easy Family Connection</h2>
+                            <p>
+                                Add relatives, upload your invitation card, and send personalized messages in a
+                                website that feels ceremonial, graceful, and truly wedding-ready.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-grid" id="family-section">
+                <div class="section-card">
+                    <h2>Connect With Relatives Easily</h2>
+                    <p>
+                        Your website now tells a clearer story: the couple at the center, the family around them,
+                        and every invitation flowing from one beautiful place.
+                    </p>
+
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">1</div>
+                            <div>
+                                <strong>Add Every Important Relative</strong>
+                                Save names and emails in one elegant place so the wedding list stays simple and organized.
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">2</div>
+                            <div>
+                                <strong>Share a Real Invitation Feel</strong>
+                                Upload your wedding card once and keep the whole experience soft, festive, and polished.
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">3</div>
+                            <div>
+                                <strong>Send Warm Personalized Messages</strong>
+                                Let relatives feel directly invited by the bride and groom, not by a cold admin page.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>How the Celebration Flows</h2>
+                    <div class="journey">
+                        <div class="journey-step">
+                            <span>Step 01</span>
+                            Create a couple-centered welcome experience that looks like a wedding invitation.
+                        </div>
+                        <div class="journey-step">
+                            <span>Step 02</span>
+                            Add relatives easily and keep your family list ready for updates at any time.
+                        </div>
+                        <div class="journey-step">
+                            <span>Step 03</span>
+                            Send everyone a graceful digital invite and keep the celebration connected.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="footer-strip">
+                <div class="footer-stat">
+                    <strong>Bride & Groom</strong>
+                    Front-and-center presentation
+                </div>
+                <div class="footer-stat">
+                    <strong>Family Ready</strong>
+                    Smooth relative invitation flow
+                </div>
+                <div class="footer-stat">
+                    <strong>Wedding Feel</strong>
+                    Elegant visuals with warm tone
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

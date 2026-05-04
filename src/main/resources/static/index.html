@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivahConnect</title>
+    <style>
+        :root {
+            --rose: #8f2d56;
+            --rose-soft: #f8e7ec;
+            --gold: #d4a24c;
+            --cream: #fffaf4;
+            --ink: #32211d;
+            --sage: #6f8c73;
+            --card: rgba(255, 255, 255, 0.9);
+            --shadow: 0 20px 50px rgba(75, 31, 49, 0.14);
+            --border: rgba(143, 45, 86, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(212, 162, 76, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(143, 45, 86, 0.15), transparent 26%),
+                linear-gradient(180deg, #fff8f2 0%, #fffdf8 45%, #f8efe7 100%);
+        }
+
+        .page-shell {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 28px 18px 60px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 48px 28px;
+            border-radius: 32px;
+            background:
+                linear-gradient(135deg, rgba(143, 45, 86, 0.92), rgba(109, 38, 63, 0.84)),
+                linear-gradient(135deg, rgba(212, 162, 76, 0.12), rgba(255, 255, 255, 0));
+            color: #fffdf9;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            width: 260px;
+            height: 260px;
+            top: -120px;
+            right: -80px;
+            background: rgba(255, 219, 128, 0.18);
+        }
+
+        .hero::after {
+            width: 180px;
+            height: 180px;
+            bottom: -70px;
+            left: -45px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            letter-spacing: 0.08em;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2.3rem, 4vw, 4.6rem);
+            line-height: 0.95;
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255, 250, 244, 0.9);
+        }
+
+        .hero-note {
+            padding: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-note h2 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .hero-note p {
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .couple-ribbon {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .ribbon-card {
+            padding: 16px 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+        }
+
+        .ribbon-card span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.76rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 244, 231, 0.8);
+        }
+
+        .ribbon-card strong {
+            font-size: 1.15rem;
+            color: #fffaf4;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .stat {
+            padding: 18px;
+            border-radius: 22px;
+            background: var(--card);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--rose);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 26px;
+        }
+
+        .panel {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: var(--card);
+            box-shadow: var(--shadow);
+        }
+
+        .panel h3 {
+            margin: 0 0 8px;
+            font-size: 1.5rem;
+            color: var(--rose);
+        }
+
+        .panel p {
+            margin: 0 0 18px;
+            line-height: 1.7;
+            color: rgba(50, 33, 29, 0.8);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        label {
+            font-size: 0.95rem;
+            color: rgba(50, 33, 29, 0.85);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"] {
+            width: 100%;
+            margin-top: 8px;
+            padding: 14px 16px;
+            border: 1px solid rgba(143, 45, 86, 0.18);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            color: var(--ink);
+        }
+
+        input:focus {
+            outline: 2px solid rgba(212, 162, 76, 0.35);
+            border-color: var(--gold);
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--rose), #b04271);
+            color: #fff;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 12px 24px rgba(143, 45, 86, 0.2);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 30px rgba(143, 45, 86, 0.26);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, var(--gold), #e0b96d);
+            color: #4b3412;
+            box-shadow: 0 12px 24px rgba(212, 162, 76, 0.22);
+        }
+
+        .action-button {
+            padding: 9px 16px;
+            font-size: 0.9rem;
+            box-shadow: none;
+        }
+
+        .action-button.remove {
+            background: linear-gradient(135deg, #b8414f, #d36370);
+            color: #fff;
+        }
+
+        .action-button.edit {
+            background: linear-gradient(135deg, #c9983f, #e0b96d);
+            color: #4b3412;
+        }
+
+        .status-box {
+            margin-top: 14px;
+            padding: 14px 16px;
+            min-height: 52px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(248, 231, 236, 0.7), rgba(255, 255, 255, 0.9));
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .status-box.success {
+            background: linear-gradient(180deg, rgba(220, 242, 223, 0.9), rgba(255, 255, 255, 0.95));
+            color: #275437;
+        }
+
+        .status-box.error {
+            background: linear-gradient(180deg, rgba(252, 224, 224, 0.94), rgba(255, 255, 255, 0.98));
+            color: #7f2432;
+        }
+
+        .members-panel {
+            margin-top: 26px;
+        }
+
+        .story-section {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 24px;
+            margin-top: 26px;
+        }
+
+        .couple-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .couple-card {
+            padding: 22px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 231, 236, 0.72));
+            border: 1px solid var(--border);
+        }
+
+        .avatar-badge {
+            width: 72px;
+            height: 72px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            margin-bottom: 14px;
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            box-shadow: 0 14px 28px rgba(143, 45, 86, 0.16);
+        }
+
+        .avatar-badge.groom {
+            background: linear-gradient(135deg, #566b8f, #7f93b7);
+        }
+
+        .avatar-badge.bride {
+            background: linear-gradient(135deg, #c35a84, #e08fae);
+        }
+
+        .couple-card span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--rose);
+        }
+
+        .couple-card strong {
+            display: block;
+            font-size: 1.35rem;
+            color: var(--ink);
+        }
+
+        .couple-card p,
+        .story-list li {
+            color: rgba(50, 33, 29, 0.78);
+            line-height: 1.7;
+        }
+
+        .story-list {
+            margin: 18px 0 0;
+            padding-left: 18px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 16px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(143, 45, 86, 0.08);
+        }
+
+        th {
+            background: rgba(248, 231, 236, 0.7);
+            color: var(--rose);
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(255, 250, 244, 0.7);
+        }
+
+        .empty-state {
+            padding: 28px 18px;
+            text-align: center;
+            color: rgba(50, 33, 29, 0.72);
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            text-align: center;
+            color: rgba(50, 33, 29, 0.65);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid,
+            .content-grid,
+            .story-section {
+                grid-template-columns: 1fr;
+            }
+
+            .couple-ribbon,
+            .couple-showcase,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <section class="hero">
+            <div class="hero-grid">
+                <div>
+                    <span class="eyebrow">VivahConnect Family Circle</span>
+                    <h1>Bring Every Relative Closer to the Celebration</h1>
+                    <p>
+                        Create a romantic digital wedding space where the bride and groom stay at the heart
+                        of the story, relatives are connected easily, and every invitation feels personal.
+                    </p>
+                    <div class="couple-ribbon">
+                        <div class="ribbon-card">
+                            <span>Groom</span>
+                            <strong>Rahul</strong>
+                        </div>
+                        <div class="ribbon-card">
+                            <span>Bride</span>
+                            <strong>Ananya</strong>
+                        </div>
+                        <div class="ribbon-card">
+                            <span>Family Mood</span>
+                            <strong>Warm & Connected</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-note">
+                    <h2>A softer, more personal wedding experience</h2>
+                    <p>
+                        From bride-and-groom presentation to relative management, every part of this page is
+                        shaped to feel more like a real wedding website and less like a plain admin tool.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat">
+                <strong id="memberCount">0</strong>
+                Family Members
+            </div>
+            <div class="stat">
+                <strong id="invitationStatus">No</strong>
+                Invitation Uploaded
+            </div>
+            <div class="stat">
+                <strong>Warm</strong>
+                Personalized Messages
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="panel">
+                <h3>Bride & Groom Presentation</h3>
+                <p>Give your celebration a face by featuring the couple clearly while keeping the whole family involved in the invitation journey.</p>
+                <div class="couple-showcase">
+                    <div class="couple-card">
+                        <div class="avatar-badge groom">G</div>
+                        <span>Groom</span>
+                        <strong>Rahul</strong>
+                        <p>Represents warmth, family pride, and a graceful welcome for every guest.</p>
+                    </div>
+                    <div class="couple-card">
+                        <div class="avatar-badge bride">B</div>
+                        <span>Bride</span>
+                        <strong>Ananya</strong>
+                        <p>Brings elegance, celebration, and a beautiful invitation feel across the website.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Connect Relatives Easily</h3>
+                <p>The website now supports a smoother family flow, so relatives can be added, tracked, and invited from one place.</p>
+                <ul class="story-list">
+                    <li>Keep all important relatives in one organized guest list.</li>
+                    <li>Upload one invitation card and share it beautifully with everyone.</li>
+                    <li>Send messages that feel like part of the wedding celebration.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="panel">
+                <h3>Add a Family Member</h3>
+                <p>Keep your guest list organized so every relative can receive a thoughtful wedding invitation.</p>
+                <div id="memberFormMode" class="status-box">Add mode: create a new family member.</div>
+                <div class="form-grid">
+                    <label>
+                        Full Name
+                        <input id="name" type="text" placeholder="Enter relative name">
+                    </label>
+                    <label>
+                        Email Address
+                        <input id="email" type="email" placeholder="Enter email address">
+                    </label>
+                </div>
+                <div class="button-row">
+                    <button type="button" id="addMemberButton" onclick="addGuest()">Add Member</button>
+                    <button type="button" id="cancelEditButton" class="secondary" onclick="cancelEdit()" style="display:none;">Cancel Edit</button>
+                    <button type="button" class="secondary" onclick="loadGuests()">Refresh List</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Invitation Delivery</h3>
+                <p>Upload your wedding invitation card once, then send heartfelt messages to all added members.</p>
+                <div class="form-grid">
+                    <label>
+                        Wedding Invitation File
+                        <input type="file" id="file">
+                    </label>
+                </div>
+                <div class="button-row">
+                    <button type="button" class="secondary" onclick="uploadFile()">Upload Invitation</button>
+                    <button type="button" onclick="sendEmails()">Send to All Members</button>
+                </div>
+                <div id="statusMessage" class="status-box">Ready to welcome your relatives.</div>
+            </div>
+        </section>
+
+        <section class="panel members-panel">
+            <h3>Family Member List</h3>
+            <p>Everyone you add appears here, so you can quickly see who is part of the wedding communication list.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestTableBody">
+                        <tr>
+                            <td colspan="4" class="empty-state">No family members added yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer-note">Designed to feel more like a family wedding page than a plain admin form.</div>
+        </section>
+    </div>
+
+    <script>
+        // Frontend talks to the Spring Boot backend running on localhost:8080.
+        const API_BASE_URL = "http://localhost:8080";
+        let uploadedInvitation = false;
+        let currentGuests = [];
+        let editingGuestId = null;
+
+        function setStatus(message, type = "") {
+            const statusBox = document.getElementById("statusMessage");
+            statusBox.textContent = message;
+            statusBox.className = "status-box" + (type ? ` ${type}` : "");
+        }
+
+        function updateInvitationStatus() {
+            document.getElementById("invitationStatus").textContent = uploadedInvitation ? "Yes" : "No";
+        }
+
+        // Escapes values before placing them into inline onclick handlers.
+        function escapeJsString(value) {
+            return String(value || "")
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'");
+        }
+
+        // Reuses the same form for both add mode and update mode.
+        function setMemberFormMode(isEditing, guest = null) {
+            const modeBox = document.getElementById("memberFormMode");
+            const addButton = document.getElementById("addMemberButton");
+            const cancelButton = document.getElementById("cancelEditButton");
+
+            if (isEditing && guest) {
+                editingGuestId = guest.id;
+                document.getElementById("name").value = guest.name || "";
+                document.getElementById("email").value = guest.email || "";
+                addButton.textContent = "Update Member";
+                addButton.onclick = () => updateGuest();
+                cancelButton.style.display = "inline-flex";
+                modeBox.textContent = `Edit mode: updating ${guest.name || "selected member"}.`;
+                modeBox.className = "status-box";
+                return;
+            }
+
+            editingGuestId = null;
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            addButton.textContent = "Add Member";
+            addButton.onclick = () => addGuest();
+            cancelButton.style.display = "none";
+            modeBox.textContent = "Add mode: create a new family member.";
+            modeBox.className = "status-box";
+        }
+
+        // Loads selected member data into the form for editing.
+        function startEditGuest(id) {
+            const guest = currentGuests.find(member => member.id === id);
+            if (!guest) {
+                setStatus("Could not find that member to edit.", "error");
+                return;
+            }
+
+            setMemberFormMode(true, guest);
+            setStatus(`Editing ${guest.name || "selected member"}. Update the fields and save.`, "");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Returns the form to normal add-member mode.
+        function cancelEdit() {
+            setMemberFormMode(false);
+            setStatus("Edit cancelled. You can add a new member now.", "");
+        }
+
+        // Draws the members table from the latest API response.
+        function renderGuests(guests) {
+            currentGuests = guests;
+            const tableBody = document.getElementById("guestTableBody");
+            const memberCount = document.getElementById("memberCount");
+            memberCount.textContent = guests.length;
+
+            if (!guests.length) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state">No family members added yet.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = guests.map((guest, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${guest.name || ""}</td>
+                    <td>${guest.email || ""}</td>
+                    <td>
+                        <button
+                            type="button"
+                            class="action-button edit"
+                            onclick="startEditGuest(${guest.id})"
+                        >
+                            Update
+                        </button>
+                        <button
+                            type="button"
+                            class="action-button remove"
+                            onclick="removeGuest(${guest.id}, '${escapeJsString(guest.name || "This member")}')"
+                        >
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        // Fetches all guests from the backend and refreshes the table.
+        async function loadGuests() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/guest/all?_=${Date.now()}`, {
+                    cache: "no-store"
+                });
+                if (!response.ok) {
+                    throw new Error("Could not load members list.");
+                }
+
+                const guests = await response.json();
+                renderGuests(guests);
+            } catch (error) {
+                setStatus(error.message, "error");
+            }
+        }
+
+        // Sends a create request for a new member.
+        async function addGuest() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const addButton = document.getElementById("addMemberButton");
+
+            if (!name || !email) {
+                setStatus("Please enter both name and email before adding a member.", "error");
+                return;
+            }
+
+            try {
+                addButton.disabled = true;
+                addButton.textContent = "Adding...";
+                const response = await fetch(`${API_BASE_URL}/guest/add`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ name, email })
+                });
+
+                const rawResponse = await response.text();
+                let message = rawResponse;
+                try {
+                    const parsed = JSON.parse(rawResponse);
+                    if (parsed && parsed.status === "success") {
+                        message = `${name} has been added to the family list.`;
+                    }
+                } catch (e) {
+                    // Keep plain-text responses as-is.
+                }
+
+                if (!response.ok) {
+                    throw new Error(message || "Failed to add member.");
+                }
+
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                setStatus(message || `${name} has been added to the family list.`, "success");
+                await loadGuests();
+            } catch (error) {
+                const readableMessage = error.message === "Failed to fetch"
+                    ? "Cannot connect to the backend. Please start the Spring app on http://localhost:8080."
+                    : error.message;
+                setStatus(readableMessage, "error");
+            } finally {
+                addButton.disabled = false;
+                addButton.textContent = "Add Member";
+            }
+        }
+
+        // Sends an update request for whichever member is in edit mode.
+        async function updateGuest() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const addButton = document.getElementById("addMemberButton");
+
+            if (editingGuestId === null) {
+                setStatus("Choose a member from the list before updating.", "error");
+                return;
+            }
+
+            if (!name || !email) {
+                setStatus("Please enter both name and email before updating a member.", "error");
+                return;
+            }
+
+            try {
+                addButton.disabled = true;
+                addButton.textContent = "Updating...";
+                const response = await fetch(`${API_BASE_URL}/guest/update/${editingGuestId}`, {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ name, email })
+                });
+
+                const rawResponse = await response.text();
+                let message = `${name} has been updated successfully.`;
+
+                try {
+                    const parsed = JSON.parse(rawResponse);
+                    if (parsed && parsed.name) {
+                        message = `${parsed.name} has been updated successfully.`;
+                    }
+                } catch (e) {
+                    if (rawResponse) {
+                        message = rawResponse;
+                    }
+                }
+
+                if (!response.ok) {
+                    throw new Error(message || "Failed to update member.");
+                }
+
+                setMemberFormMode(false);
+                setStatus(message, "success");
+                await loadGuests();
+            } catch (error) {
+                const readableMessage = error.message === "Failed to fetch"
+                    ? "Cannot connect to the backend. Please start the Spring app on http://localhost:8080."
+                    : error.message;
+                setStatus(readableMessage, "error");
+            } finally {
+                addButton.disabled = false;
+                addButton.textContent = editingGuestId === null ? "Add Member" : "Update Member";
+            }
+        }
+
+        // Uploads the invitation file so it can later be attached to all emails.
+        async function uploadFile() {
+            const fileInput = document.getElementById("file");
+            if (!fileInput.files.length) {
+                setStatus("Please choose an invitation file before uploading.", "error");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/invitation/upload`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const message = await response.text();
+                if (!response.ok) {
+                    throw new Error(message || "Upload failed.");
+                }
+
+                uploadedInvitation = true;
+                updateInvitationStatus();
+                setStatus(message || "Invitation uploaded successfully.", "success");
+            } catch (error) {
+                uploadedInvitation = false;
+                updateInvitationStatus();
+                setStatus(error.message, "error");
+            }
+        }
+
+        // Triggers email sending for every saved guest/member.
+        async function sendEmails() {
+            setStatus("Sending heartfelt invitations to your family members...", "");
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/guest/send`);
+                const message = await response.text();
+                if (!response.ok) {
+                    throw new Error(message || "Email sending failed.");
+                }
+
+                setStatus(message || "All invitations sent successfully.", "success");
+            } catch (error) {
+                setStatus(error.message, "error");
+            }
+        }
+
+        // Removes a member after browser confirmation.
+        async function removeGuest(id, name) {
+            const confirmed = window.confirm(`Remove ${name} from the family list?`);
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/guest/delete/${id}`, {
+                    method: "POST"
+                });
+                const message = await response.text();
+
+                if (!response.ok) {
+                    throw new Error(message || "Failed to remove member.");
+                }
+
+                setStatus(message || `${name} removed successfully.`, "success");
+                renderGuests(currentGuests.filter(guest => guest.id !== id));
+                await loadGuests();
+            } catch (error) {
+                setStatus(error.message, "error");
+            }
+        }
+
+        // Initialize the dashboard with invitation status and the latest guest list.
+        updateInvitationStatus();
+        setMemberFormMode(false);
+        loadGuests();
+    </script>
+</body>
+</html>
